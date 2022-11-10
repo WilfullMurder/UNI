@@ -13,6 +13,3 @@ PYTHON and JAVA are being covered at uni.
 C# and C++ are not.
 regardless I am self taught.
 
-
-
-![SelectionSort drawio](https://user-images.githubusercontent.com/81480788/200979740-4f302bec-5f61-43e1-87c7-8b64817cf3f4.png)
