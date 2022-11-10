@@ -1,68 +1,91 @@
 package org.example;
+/**
+ * Binary search algorithms.
+ * ITER is an iterative approach
+ * REC is a recursive approach
+ * Time complexity: O(log n) where N == len
+ */
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 
 public class binSearch
 {
-    private List<Integer> myList = new ArrayList<Integer>();
 
+    private int loopCount_REC;
     public binSearch()
     {
+        this.loopCount_REC = 0;
 
     }
 
-    public binSearch(List<Integer> integerList)
+    public int search_ITER(int arr[], int key)
     {
-        this.myList = integerList;
-        System.out.println("list: " + this.myList);
-        this.myList.sort(null);
-        System.out.println("Sorted list: " + this.myList);
-    }
-
-    public void generateOrderedList(int count)
-    {
-
-        for (int i = 0; i < count; i++) {
-            myList.add(i);
+        if (arr[0] == key)
+        {
+            System.out.println("Value: " + key + "Found at index: 0");
+            System.out.println("0 loops used");
         }
-    }
-    public void binSearch(List<Integer> list, int value)
-    {
         int low = 0;
-        int high = list.size() - 1;
+        int high = arr.length - 1;
         int loopCount = 0;
-        int length = myList.size();
-
-        while(low <= high)
+        while (high - low > 1)
         {
             loopCount++;
-            int mid = (low + high) / 2;
-            int guess = list.get(mid);
-            if(guess == value)
+            int mid = (high + low) / 2;
+            if (arr[mid] > key)
             {
-                System.out.println("Found value: " + value);
-                System.out.println("list length: " + length);
-                System.out.println("Loops to find: " + loopCount);
-                return; }
-            if(guess > value)
-            {
-
                 high = mid - 1;
             }
             else
             {
                 low = mid + 1;
             }
+        }
+        if (arr[high] == key)
+        {
+            System.out.println("Value: " + key + " Found at index: " + high);
+            System.out.println(loopCount +" loops used");
+            return high;
+        }
+        else if (arr[low] == key)
+        {
+            System.out.println("Value: " + key + " Found at index: " + low);
+            System.out.println(loopCount +" loops used");
+            return low;
+        }
+        else
+        {
+            System.out.println("Not Found");
+            System.out.println(loopCount +" loops used");
+            return -1;
+        }
+    }
+
+    public int search_REC(int arr[], int low, int high, int key)
+    {
+        if(high >= 1)
+        {
+            loopCount_REC++;
+            int mid = low + (high-1)/2;
+
+            if(arr[mid] == key)
+            {
+                System.out.println("Value: " + key + " Found at index: " + mid);
+                System.out.println(this.loopCount_REC +" loops used");
+                return mid;
+            }
+
+            if(arr[mid] > key)
+            {
+                return search_REC(arr, low, mid-1, key);
+            }
+            return search_REC(arr, mid+1, high, key);
 
 
         }
-
+        System.out.println("Not Found");
+        System.out.println(this.loopCount_REC +" loops used");
+        return -1;
     }
 
-    public List<Integer> getList()
-    {
-        return this.myList;
-    }
+
 }
